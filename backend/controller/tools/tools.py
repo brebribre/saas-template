@@ -1,6 +1,6 @@
 from typing import Dict, Any, List
 from .weather_tool import WeatherTool
-from agents import WebSearchTool
+from .web_search_tool import WebSearchTool
 
 class Tools:
     """
@@ -10,6 +10,29 @@ class Tools:
     def __init__(self):
         # 1. add new tools here
         self.tools = [
+            {
+                "type": "function",
+                "name": "web_search",
+                "description": "Search the web for information",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "query": {
+                            "type": "string",
+                            "description": "The search query"
+                        },
+                        "max_results": {
+                            "type": "integer",
+                            "description": "The maximum number of results to return",
+                            "default": 3
+                        }
+                    },
+                    "required": [
+                        "query"
+                    ],
+                    "additionalProperties": False
+                }
+            },
             {
                 "type": "function",
                 "name": "get_weather",
@@ -63,6 +86,8 @@ class Tools:
         print('TOOL_ARGS', tool_args)
         if tool_name == "get_weather":
             return WeatherTool.get_weather(**tool_args)
+        elif tool_name == "web_search":
+            return WebSearchTool.web_search(**tool_args)
         else:
             raise ValueError(f"Tool {tool_name} not found")
 
