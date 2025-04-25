@@ -38,7 +38,7 @@ class Tools:
     @staticmethod
     def get_all_tools_definitions() -> List[Dict[str, Any]]:
         return Tools().tools
-        
+   
     def call_tool(self, tool_name: str, tool_args) -> Dict[str, Any]:
         if tool_name in self.tools_map:
             return self.tools_map[tool_name](**tool_args)
@@ -49,3 +49,17 @@ class Tools:
     def get_tools_by_names(tool_names: List[str]) -> List[Dict[str, Any]]:
         """Get tool definitions for the specified tool names"""
         return [tool for tool in Tools().get_all_tools_definitions() if tool.get("name") in tool_names]
+
+
+    @staticmethod
+    def get_all_function_tools() -> List[Dict[str, Any]]:
+        """Get all function tools. This if for OpenAI Agent SDK"""
+        return Tools().tools_map
+
+    @staticmethod
+    def get_function_tools_by_names(tool_names: List[str]) -> List[Any]:
+        """
+        Get function tools for the specified tool names.
+        """
+        tools_map = Tools().tools_map
+        return [tools_map[name] for name in tool_names if name in tools_map]
