@@ -1,5 +1,6 @@
 import os
-from typing import List, Dict, Any, Optional
+import json
+from typing import List, Dict, Any, Optional, Union
 from openai import OpenAI
 from dotenv import load_dotenv
 
@@ -17,14 +18,15 @@ class OpenAIUtils:
         self.client = OpenAI(api_key=api_key)
     
     def create_response(self, 
-                       input_text: str, 
+                       input_text: Union[str, List[Dict[str, str]]], 
                        model: str = "gpt-4o", 
+                       stream: bool = False,
                        tools: Optional[List[Dict[str, Any]]] = None,
                        temperature: float = 0.7) -> Dict[str, Any]:
-        """Create a response using the OpenAI responses API
+        """Create a response using the OpenAI Chat Completions API
         
         Args:
-            input_text: The user's input query
+            input_text: Either a string message or a list of message objects with role and content
             model: The model to use (default: gpt-4o)
             tools: Optional list of tools to enable
             temperature: Sampling temperature, between 0 and 2
@@ -35,14 +37,35 @@ class OpenAIUtils:
         if tools is None:
             tools = []
         
-        params = {
-            "model": model,
-            "input": input_text,
-            "tools": tools,
-            "temperature": temperature,
-        }
+        # Format the input correctly based on its type
+        if isinstance(input_text, str):
+            formatted_input = [{"role": "user", "content": input_text}]
+        elif isinstance(input_text, list):
+            formatted_input = input_text
+        else:
+            raise ValueError("input_text must be either a string or a list of message objects")
         
-        # Make the API request
-        response = self.client.responses.create(**params)
-        
-        return response
+        try:
+            params = {
+                "model": model,
+                "input": formatted_input,
+                "temperature": temperature,
+                "stream": stream,
+            }
+            
+            # Only add tools if there are any
+            if tools:
+                params["tools"] = tools
+
+            print('PARAMS', params)
+            
+            # Make the API request
+            response = self.client.responses.create(**params)
+            
+            return response
+            
+        except Exception as e:
+            print(f"Error making OpenAI API request: {str(e)}")
+            if hasattr(e, 'response') and hasattr(e.response, 'text'):
+                print(f"Response details: {e.response.text}")
+            raise
