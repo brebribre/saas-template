@@ -42,8 +42,6 @@ To install and set up the project locally:
    
    # Add your API keys for language models
    OPENAI_API_KEY=your_openai_key_here
-   ANTHROPIC_API_KEY=your_anthropic_key_here
-   GOOGLE_API_KEY=your_google_api_key_here
    
    # Telegram configuration (if using)
    TELEGRAM_BOT_TOKEN=your_telegram_bot_token
