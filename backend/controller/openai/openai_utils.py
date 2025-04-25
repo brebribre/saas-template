@@ -5,6 +5,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from agents import Agent, Runner,function_tool
 import asyncio
+from controller.tools.tools import Tools
 
 class OpenAIUtils:
     """Utility class for OpenAI API interactions"""
@@ -18,7 +19,7 @@ class OpenAIUtils:
             raise ValueError("OpenAI API key is required. Set OPENAI_API_KEY environment variable or pass directly.")
             
         self.client = OpenAI(api_key=api_key)
-    
+        self.tools = Tools()
     def create_response(self, 
                        input_text: Union[str, List[Dict[str, str]]], 
                        model: str = "gpt-4o", 
@@ -63,8 +64,19 @@ class OpenAIUtils:
             
             # Make the API request
             response = self.client.responses.create(**params)
-            
-            return response
+
+            response_data = response.model_dump()
+
+            call = response_data["output"][0]
+
+            if call["type"] == "function_call":
+                tool_name = call["name"]
+                tool_args = json.loads(call["arguments"])
+                tool_response = self.tools.call_tool(tool_name, tool_args)
+
+                return tool_response
+            else:
+                return response_data
             
         except Exception as e:
             print(f"Error making OpenAI API request: {str(e)}")

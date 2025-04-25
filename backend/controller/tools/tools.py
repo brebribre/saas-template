@@ -12,24 +12,6 @@ class Tools:
         self.tools = [
             {
                 "type": "function",
-                "name": "web_search",
-                "description": "Search the web for information",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "query": {
-                            "type": "string",
-                            "description": "The search query"
-                        }
-                    },
-                    "required": [
-                        "query"
-                    ],
-                    "additionalProperties": False
-                }
-            },
-            {
-                "type": "function",
                 "name": "get_weather",
                 "description": "Get current temperature for a given location.",
                 "parameters": {
@@ -50,7 +32,6 @@ class Tools:
         # 2. map the tool definitions to the tool implementations here
         self.tools_map = {
             "get_weather": WeatherTool.get_weather,
-            "web_search": WebSearchTool()
         }
         # 3. make a new <tool_name>_tool.py file for each tool implementation. See weather_tool.py for example
     
@@ -78,9 +59,10 @@ class Tools:
     
     # Only for Responses API. OpenAI SDK already has a tool calling mechanism built in.
     def call_tool(self, tool_name: str, tool_args) -> Dict[str, Any]:
-        if tool_name in self.tools_map:
-            return self.tools_map[tool_name](**tool_args)
+        print('TOOL_NAME', tool_name)
+        print('TOOL_ARGS', tool_args)
+        if tool_name == "get_weather":
+            return WeatherTool.get_weather(**tool_args)
         else:
             raise ValueError(f"Tool {tool_name} not found")
-
 

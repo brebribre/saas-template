@@ -52,9 +52,8 @@ async def create_response(request: ResponseRequest):
             stream=request.stream
         )
         
-        response_data = response.model_dump()
         
-        return response_data["output"]
+        return response
     
     except ValueError as e:
         # Handle errors for unknown tools
