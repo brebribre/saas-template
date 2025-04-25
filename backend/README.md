@@ -1,13 +1,13 @@
-# Sellis Backend
+# Stratigo Backend
 
-This repository contains the backend for the Sellis project. The backend is responsible for processing the data and serving it to the frontend and Telegram.
+This repository contains the backend for the Stratigo project. The backend is responsible for processing requests and integrating with various language models and external services.
 
 ## Features
 
-- **Flask-based RESTful API**: Handles client requests and serves a processed data.
-- **Data Processing**: Formatting order information from Ginee API and then storing it to a MongoDB database.
-- **Daily Report**: Automatic report of daily sales and profit via Telegram.
-- **Dynamic Cost Update**: Fetching cost information from a Google Sheets database.
+- **FastAPI-based RESTful API**: High-performance, modern API with automatic OpenAPI documentation.
+- **LangChain Integration**: Connects to various AI models and tools using LangChain.
+- **Telegram Integration**: Supports sending notifications via Telegram.
+- **OpenAPI Documentation**: Built-in interactive API documentation at `/api/v1/docs`.
 
 ## Prerequisites
 
@@ -22,23 +22,46 @@ To install and set up the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/brebribre/sellis-backend.git
-   cd sellis-backend
+   git clone <repository-url>
+   cd saas-template/backend
    ```
 
-2. **Activate virtual environment(optional):**
+2. **Create and activate virtual environment:**
    ```bash
    python3 -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    pip install -r requirements.txt
    ```
 
-3. **Once installed, ensure to add the environment variables:**
-   ```bash
-   ATLAS_URI=mongodb+srv://<your-username>:admin@<cluster-name>.lnlrf4e.mongodb.net/?retryWrites=true&w=majority
+3. **Set up environment variables:**
+   Create a `.env` file in the backend directory with your configuration:
+   ```
+   # Environment configuration
+   ENVIRONMENT=development
+   FRONTEND_URL=http://localhost:3000
+   
+   # Add your API keys for language models
+   OPENAI_API_KEY=your_openai_key_here
+   ANTHROPIC_API_KEY=your_anthropic_key_here
+   GOOGLE_API_KEY=your_google_api_key_here
+   
+   # Telegram configuration (if using)
+   TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+   TELEGRAM_CHAT_ID=your_telegram_chat_id
    ```
 
-4. **Then, you can run the Flask development server by using:**
+4. **Run the development server:**
    ```bash
-   flask run
+   uvicorn main:app --reload
    ```
+
+5. **Access the API documentation:**
+   Open your browser and go to [http://localhost:8000/api/v1/docs](http://localhost:8000/api/v1/docs)
+
+## Deployment
+
+For production deployment, you can use Gunicorn with Uvicorn workers:
+
+```bash
+gunicorn -c gunicorn_config.py main:app
+```

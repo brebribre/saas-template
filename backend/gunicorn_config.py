@@ -2,7 +2,7 @@
 
 # Worker configuration
 workers = 2  # Reduced number of workers for Digital Ocean's resource constraints
-worker_class = 'sync'  # Using sync workers for simplicity
+worker_class = 'uvicorn.workers.UvicornWorker'  # Using Uvicorn workers for ASGI
 threads = 1  # Single thread per worker
 
 # Request handling
@@ -18,7 +18,7 @@ errorlog = '-'
 loglevel = 'info'
 
 # Process naming
-proc_name = 'sellis-backend'
+proc_name = 'backend'
 
 # Bind - Let Digital Ocean handle the port binding
 bind = '0.0.0.0:8080'
