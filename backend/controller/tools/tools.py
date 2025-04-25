@@ -11,8 +11,22 @@ class Tools:
         # 1. add new tools here
         self.tools = [
             {
-                "type": "web_search_preview",
-                "name": "web_search"
+                "type": "function",
+                "name": "web_search",
+                "description": "Search the web for information",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "query": {
+                            "type": "string",
+                            "description": "The search query"
+                        }
+                    },
+                    "required": [
+                        "query"
+                    ],
+                    "additionalProperties": False
+                }
             },
             {
                 "type": "function",
