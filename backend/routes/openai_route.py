@@ -13,9 +13,6 @@ AVAILABLE_TOOLS = {
     "web_search": {
         "type": "web_search_preview"
     },
-    "code_interpreter": {
-        "type": "code_interpreter"
-    },
 }
 
 class Message(BaseModel):
@@ -63,7 +60,7 @@ async def create_response(request: ResponseRequest):
         
         response_data = response.model_dump()
         
-        return response_data
+        return response_data["output"]
     
     except HTTPException as e:
         # Re-raise HTTP exceptions
