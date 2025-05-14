@@ -1,6 +1,6 @@
 # SaaS Quickstart
 
-A complete starter template for building SaaS applications with Vue 3 with shad-cn and Tailwind CSS, Flask, and Supabase authentication.
+A complete starter template for building SaaS applications with Vue 3 with shad-cn and Tailwind CSS, FastAPI, and Supabase authentication.
 
 ## Overview
 
