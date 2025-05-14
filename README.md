@@ -7,7 +7,7 @@ A complete starter template for building SaaS applications with Vue 3 with shad-
 This template provides everything you need to quickly launch a SaaS product:
 
 - **Frontend**: Vue 3 with TypeScript, Vite, Tailwind CSS, and shad-cn
-- **Backend**: Flask Python API with a structured project setup
+- **Backend**: FastAPI Python with a structured project setup
 - **Authentication**: Complete Supabase auth system with login, registration, and profile management
 - **Infrastructure**: Development environment with concurrent frontend and backend servers
 
@@ -92,10 +92,11 @@ npm run install-all
 
 ### Development
 
-To run both frontend and backend in development mode:
+To run both frontend and backend in development mode, run this from root folder:
 ```bash
 npm run dev
 ```
+This will activate the package.json script using Concurrently, that calls the backend and frontend together.
 
 This will start:
 - Frontend on http://localhost:5173
@@ -111,38 +112,6 @@ To run only backend:
 npm run backend
 ```
 
-### Manual Backend Setup (if needed)
-
-If you prefer to set up the backend manually or if the automatic setup fails:
-
-1. Create and activate virtual environment:
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Run Flask:
-```bash
-flask run
-```
-
-### Production
-
-1. Build the frontend:
-```bash
-npm run build
-```
-
-2. Start the production server:
-```bash
-npm start
-```
 ## License
 
 MIT
