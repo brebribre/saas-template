@@ -15,7 +15,7 @@ This is the frontend portion of the SaaS Quickstart template, providing a comple
 - **Pinia**: State management for Vue applications
 - **Vue Router**: Client-side routing with navigation guards
 - **Tailwind CSS**: Utility-first CSS framework for styling
-- **vue-shad-cn**: Uses the vue-shad-cn component library
+- **shadcn-vue**: Beautifully designed components built with Radix Vue and Tailwind CSS
 - **Responsive Design**: Mobile-friendly layouts for all pages
 
 ## Authentication
@@ -45,7 +45,7 @@ The application uses Supabase for authentication:
 frontend/
 ├── src/                # Source code
 │   ├── components/     # Reusable components
-│   │   ├── ui/         # UI components
+│   │   ├── ui/         # UI components from shadcn-vue
 │   │   └── ...         # Feature-specific components
 │   ├── views/          # Page components
 │   ├── stores/         # Pinia stores
@@ -109,6 +109,22 @@ npm run build
 
 - Add or modify routes in `src/router/index.ts`
 
+### Adding shadcn-vue Components
+
+You can easily add new shadcn-vue components using the CLI:
+
+```bash
+npx shadcn-vue@latest add [component-name]
+```
+
+For example, to add a calendar component:
+
+```bash
+npx shadcn-vue@latest add calendar
+```
+
+This will add the component to your `src/components/ui` directory, ready for immediate use.
+
 ## Learn More
 
 - [Vue 3 Documentation](https://v3.vuejs.org/)
@@ -118,3 +134,4 @@ npm run build
 - [Pinia Documentation](https://pinia.vuejs.org/)
 - [Vue Router Documentation](https://router.vuejs.org/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [shadcn-vue Documentation](https://www.shadcn-vue.com/)

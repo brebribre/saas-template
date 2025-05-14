@@ -65,6 +65,7 @@ This template provides everything you need to quickly launch a SaaS product:
 ```
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_BACKEND_URL=http://127.0.0.1:8000
 ```
 
 2. Create a `.env` file in the backend directory with your configuration:
@@ -78,12 +79,9 @@ OPENAI_API_KEY=your_openai_api_key
 ```
 
 ### Installation
+This repository uses Concurrently to create package.json scripts that concurrently run the client and server. To run the application, follow these:
 
 1. Clone the repository:
-```bash
-git clone https://github.com/brebribre/vue-flask-saas-quickstart.git
-cd vue-flask-saas-quickstart
-```
 
 2. Install all dependencies (frontend and backend):
 ```bash
@@ -100,7 +98,7 @@ This will activate the package.json script using Concurrently, that calls the ba
 
 This will start:
 - Frontend on http://localhost:5173
-- Backend on http://localhost:8000
+- Backend on http://localhost:8000 with Endpoints accessible via swagger in http://127.0.0.1:8000/api/v1/docs
 
 To run only frontend:
 ```bash
@@ -111,6 +109,7 @@ To run only backend:
 ```bash
 npm run backend
 ```
+
 
 ## License
 
